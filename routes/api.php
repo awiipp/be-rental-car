@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\RentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,17 +11,19 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/a24/auth/login', [AuthController::class, 'login']);
+Route::prefix('a24')->group(function () {
+    Route::post('/auth/login', [AuthController::class, 'login']);
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/a24/auth/logout', [AuthController::class, 'logout']);
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('/auth/logout', [AuthController::class, 'logout']);
 
-    // register
-    Route::get('/a24/register', [AuthController::class, 'index']);
-    Route::post('/a24/register', [AuthController::class, 'register']);
-    Route::put('/a24/register/{id}', [AuthController::class, 'update']);
-    Route::delete('/a24/register/{id}', [AuthController::class, 'destroy']);
+        // register
+        Route::get('/register', [UserController::class, 'index']);
+        Route::post('/register', [UserController::class, 'register']);
+        Route::put('/register/{id}', [UserController::class, 'update']);
+        Route::delete('/register/{id}', [UserController::class, 'destroy']);
 
-    Route::resource('car', CarController::class);
-    Route::resource('rent', RentController::class);
+        Route::resource('car', CarController::class);
+        Route::resource('rent', RentController::class);
+    });
 });
