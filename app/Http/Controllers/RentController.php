@@ -54,8 +54,8 @@ class RentController extends Controller
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
-            'id_tenant' => 'required|exist:users',
-            'id_car' => 'required|exist:cars',
+            'id_tenant' => 'required|exists:users,id',
+            'id_car' => 'required|exists:cars,id',
             'date_borrow' => 'required',
             'date_return' => 'required',
             'down_payment' => 'required',
@@ -63,7 +63,7 @@ class RentController extends Controller
             'total' => 'required'
         ]);
 
-        if (!$validated) {
+        if ($validated->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'invalid field'
@@ -73,7 +73,7 @@ class RentController extends Controller
         $downPayment = $request->input('down_payment', 0);
         $discount = $request->input('discount', 0);
 
-        $total = $request->total - ($downPayment + ($request->total * $discount));
+        $total = $request->total - ($downPayment + ($request->total * ($discount / 100)));
 
         Rent::create([
             'id_tenant' => $request->id_tenant,
@@ -141,8 +141,8 @@ class RentController extends Controller
         }
 
         $validated = Validator::make($request->all(), [
-            'id_tenant' => 'required|exist:users',
-            'id_car' => 'required|exist:cars',
+            'id_tenant' => 'required|exists:users',
+            'id_car' => 'required|exists:cars',
             'date_borrow' => 'required',
             'date_return' => 'required',
             'down_payment' => 'required',
@@ -150,7 +150,7 @@ class RentController extends Controller
             'total' => 'required'
         ]);
 
-        if (!$validated) {
+        if ($validated->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'invalid field'

@@ -45,7 +45,7 @@ class CarController extends Controller
             'price' => 'required',
         ]);
 
-        if ($validated->errors()) {
+        if ($validated->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'invalid field.'
@@ -134,7 +134,7 @@ class CarController extends Controller
             'price' => 'required',
         ]);
 
-        if ($validated->errors()) {
+        if ($validated->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'invalid field.'
