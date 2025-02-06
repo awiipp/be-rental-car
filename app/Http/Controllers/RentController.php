@@ -73,7 +73,7 @@ class RentController extends Controller
         $downPayment = $request->input('down_payment', 0);
         $discount = $request->input('discount', 0);
 
-        $total = $request->total - ($downPayment + ($request->total * ($discount / 100)));
+        $total = $request->total - ($downPayment + $discount);
 
         $rent = Rent::create([
             'id_tenant' => $request->id_tenant,
@@ -147,8 +147,8 @@ class RentController extends Controller
         }
 
         $validated = Validator::make($request->all(), [
-            'id_tenant' => 'required|exists:users',
-            'id_car' => 'required|exists:cars',
+            'id_tenant' => 'required|exists:users,id',
+            'id_car' => 'required|exists:cars,id',
             'date_borrow' => 'required',
             'date_return' => 'required',
             'down_payment' => 'required',
@@ -166,7 +166,7 @@ class RentController extends Controller
         $downPayment = $request->input('down_payment', 0);
         $discount = $request->input('discount', 0);
 
-        $total = $request->total - ($downPayment + ($request->total * $discount));
+        $total = $request->total - ($downPayment + $discount);
 
         $rent->update([
             'id_tenant' => $request->id_tenant,

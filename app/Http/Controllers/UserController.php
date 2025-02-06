@@ -70,29 +70,53 @@ class UserController extends Controller
         ], 200);
     }
 
-    // public function edit($id)
-    // {
-    //     if (Auth::user()->role != 'admin') {
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => 'Forbidden'
-    //         ], 403);
-    //     }
+    public function show($id)
+    {
+        if (Auth::user()->role != 'admin') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Forbidden'
+            ], 403);
+        }
 
-    //     $user = User::find($id);
+        $user = User::find($id);
 
-    //     if (!$user) {
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => 'User not found.'
-    //         ], 404);
-    //     }
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.'
+            ], 404);
+        }
 
-    //     return response()->json([
-    //         'success' => true,
-    //         'user' => $user
-    //     ], 200);
-    // }
+        return response()->json([
+            'success' => true,
+            'user' => $user
+        ], 200);
+    }
+
+    public function edit($id)
+    {
+        if (Auth::user()->role != 'admin') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Forbidden'
+            ], 403);
+        }
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found.'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'user' => $user
+        ], 200);
+    }
 
     public function update(Request $request, string $id)
     {

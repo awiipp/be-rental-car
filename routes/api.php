@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\PenaltyController;
 use App\Http\Controllers\RentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -19,11 +20,14 @@ Route::prefix('a24')->group(function () {
 
         // register
         Route::get('/register', [UserController::class, 'index']);
+        Route::get('/register/{id}', [UserController::class, 'show']);
         Route::post('/register', [UserController::class, 'register']);
         Route::put('/register/{id}', [UserController::class, 'update']);
         Route::delete('/register/{id}', [UserController::class, 'destroy']);
 
         Route::resource('car', CarController::class);
         Route::resource('rent', RentController::class);
+        Route::resource('return', RentController::class);
+        Route::resource('penalty', PenaltyController::class);
     });
 });
