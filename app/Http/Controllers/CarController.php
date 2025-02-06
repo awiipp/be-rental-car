@@ -52,7 +52,7 @@ class CarController extends Controller
             ], 422);
         }
 
-        Car::create([
+        $car = Car::create([
             'no_car' => $request->no_car,
             'name_car' => $request->name_car,
             'type_car' => $request->type_car,
@@ -65,7 +65,8 @@ class CarController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'create car success.'
+            'message' => 'create car success.',
+            'car' => $car
         ]);
     }
 
@@ -154,7 +155,8 @@ class CarController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'update car success.'
+            'message' => 'update car success.',
+            'car' => $car
         ]);
     }
 

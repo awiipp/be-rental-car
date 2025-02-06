@@ -53,7 +53,7 @@ class PenaltyController extends Controller
             ], 422);
         }
 
-        Penalty::create([
+        $penalty = Penalty::create([
             'penalties_name' => $request->input('penalties_name'),
             'description' => $request->input('description'),
             'id_car' => $request->input('id_car'),
@@ -62,7 +62,8 @@ class PenaltyController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'create penalties success'
+            'message' => 'create penalties success',
+            'penalty' => $penalty
         ]);
     }
 
@@ -143,7 +144,8 @@ class PenaltyController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'create penalties success'
+            'message' => 'create penalties success',
+            'penalty' => $penalty
         ]);
     }
 

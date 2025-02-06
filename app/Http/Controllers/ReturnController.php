@@ -68,7 +68,7 @@ class ReturnController extends Controller
         $discount = $request->input('discount', 0);
         $total = $carPrice - ($penaltiesTotal + $discount);
 
-        CarReturn::create([
+        $return = CarReturn::create([
             'id_tenant' => $request->input('id_tenant'),
             'id_car' => $request->input('id_car'),
             'id_penalties' => $request->input('id_penalties'),
@@ -81,7 +81,8 @@ class ReturnController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'create return success.'
+            'message' => 'create return success.',
+            'return' => $return,
         ]);
     }
 
@@ -180,7 +181,8 @@ class ReturnController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'update return success.'
+            'message' => 'update return success.',
+            'return' => $return
         ]);
     }
 

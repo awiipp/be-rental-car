@@ -75,7 +75,7 @@ class RentController extends Controller
 
         $total = $request->total - ($downPayment + ($request->total * ($discount / 100)));
 
-        Rent::create([
+        $rent = Rent::create([
             'id_tenant' => $request->id_tenant,
             'id_car' => $request->id_car,
             'date_borrow' => $request->date_borrow,
@@ -83,6 +83,12 @@ class RentController extends Controller
             'down_payment' => $downPayment,
             'discount' => $discount,
             'total' => $total
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'create rent success',
+            'rent' => $rent
         ]);
     }
 
@@ -174,7 +180,8 @@ class RentController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'rent edited success.'
+            'message' => 'rent edited success.',
+            'rent' => $rent
         ]);
     }
 

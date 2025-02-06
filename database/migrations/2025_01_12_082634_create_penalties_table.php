@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('penalties', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_car');
             $table->string('penalties_name');
             $table->string('description');
-            $table->unsignedBigInteger('id_car');
             $table->string('penalties_total');
             $table->timestamps();
+
+            $table->foreign('id_car')->references('id')->on('cars');
         });
     }
 

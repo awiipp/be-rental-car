@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('discount');
             $table->string('total');
             $table->timestamps();
+
+            $table->foreign('id_tenant')->references('id')->on('users');
+            $table->foreign('id_car')->references('id')->on('cars');
         });
     }
 
