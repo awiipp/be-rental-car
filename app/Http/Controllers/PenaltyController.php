@@ -40,7 +40,7 @@ class PenaltyController extends Controller
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
-            'penalties_name' => 'requred',
+            'penalties_name' => 'required',
             'description' => 'required',
             'id_car' => 'required|exists:cars,id',
             'penalties_total' => 'required',
@@ -122,7 +122,7 @@ class PenaltyController extends Controller
         }
 
         $validated = Validator::make($request->all(), [
-            'penalties_name' => 'requred',
+            'penalties_name' => 'required',
             'description' => 'required',
             'id_car' => 'required|exists:cars,id',
             'penalties_total' => 'required',
