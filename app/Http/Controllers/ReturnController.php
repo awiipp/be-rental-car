@@ -64,9 +64,9 @@ class ReturnController extends Controller
         $car = Car::find($request->input('id_car'));
         $carPrice = $car->price;
 
-        $penaltiesTotal = $request->input('penalties_total', 0);
-        $discount = $request->input('discount', 0);
-        $total = $carPrice - ($penaltiesTotal + $discount);
+        $penaltiesTotal = (int)$request->input('penalties_total', 0);
+        $discount = (int)$request->input('discount', 0);
+        $total = (int)$carPrice - ($penaltiesTotal + $discount);
 
         $return = CarReturn::create([
             'id_tenant' => $request->input('id_tenant'),
@@ -139,11 +139,6 @@ class ReturnController extends Controller
                 'message' => 'return not found.'
             ], 404);
         }
-
-        return response()->json([
-            'success' => true,
-            'return' => $return
-        ]);
 
         $validated = Validator::make($request->all(), [
             'id_tenant' => 'required|exists:users,id',
